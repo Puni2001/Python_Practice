@@ -1,4 +1,143 @@
-Understanding how to determine whether an algorithm is O(1), O(n), O(n^2), O(log n), or any other complexity involves analyzing the structure of the algorithm, particularly the loops and recursive calls. Here’s a step-by-step guide to help you decide the complexity:
+
+---
+
+## **Time Complexity**
+
+### 1. **What is Time Complexity?**
+   - **Definition**: Time Complexity is a way of analyzing how the execution time of an algorithm increases with the input size (denoted as \(n\)).
+   - **Goal**: To understand and compare the efficiency of algorithms, especially as input sizes grow.
+
+### 2. **Common Time Complexity Notations**
+   - **Big-O Notation \(O(f(n))\)**: Describes the **upper bound** of the algorithm’s runtime, focusing on the worst-case scenario.
+   - **Theta Notation \(\Theta(f(n))\)**: Describes the **tight bound** of runtime, focusing on the average case.
+   - **Omega Notation \(\Omega(f(n))\)**: Describes the **lower bound** of runtime, focusing on the best-case scenario.
+
+### 3. **Common Time Complexities**
+
+| Complexity     | Notation         | Example                                |
+|----------------|------------------|----------------------------------------|
+| Constant       | \(O(1)\)         | Accessing an element in an array       |
+| Logarithmic    | \(O(\log n)\)    | Binary Search                          |
+| Linear         | \(O(n)\)         | Linear Search                          |
+| Linearithmic   | \(O(n \log n)\)  | Merge Sort, Quick Sort                 |
+| Quadratic      | \(O(n^2)\)       | Bubble Sort, Selection Sort            |
+| Cubic          | \(O(n^3)\)       | 3 nested loops                         |
+| Exponential    | \(O(2^n)\)       | Recursive Fibonacci                    |
+| Factorial      | \(O(n!)\)        | Generating all permutations            |
+
+### 4. **How to Calculate Time Complexity**
+
+   - **Loops**: Analyze how many times a loop runs.
+     - Example: 
+       ```python
+       for i in range(n):     # Runs O(n) times
+           print(i)
+       ```
+   - **Nested Loops**: Multiply the time complexity of each loop.
+     - Example:
+       ```python
+       for i in range(n):          # O(n)
+           for j in range(n):      # O(n)
+               print(i, j)         # O(1)
+       ```
+       *Total Complexity*: \(O(n) \times O(n) = O(n^2)\).
+   - **Recursive Functions**: Use recurrence relations to calculate the complexity. For example, `T(n) = T(n-1) + O(1)` results in \(O(n)\).
+   
+### 5. **Common Mistakes in Time Complexity Calculations**
+   - **Ignoring inner operations**: Remember that nested operations increase complexity (e.g., two nested loops are \(O(n^2)\), not \(O(n)\)).
+   - **Not simplifying correctly**: Only the highest-order term matters (e.g., \(O(n + n^2) \rightarrow O(n^2)\)).
+   - **Ignoring logarithmic operations**: Be cautious with algorithms that halve the input (like Binary Search, which is \(O(\log n)\)).
+
+---
+
+## **Space Complexity**
+
+### 1. **What is Space Complexity?**
+   - **Definition**: Space Complexity measures the amount of memory an algorithm needs to run, based on input size \(n\).
+   - **Goal**: Minimize the memory usage of your code, especially for large input sizes.
+
+### 2. **Types of Space Complexity**
+
+   - **Auxiliary Space**: The extra space or temporary space used by the algorithm, excluding input size.
+   - **Total Space**: The sum of input size and auxiliary space used by the algorithm.
+
+### 3. **Common Space Complexities**
+
+| Complexity     | Notation         | Example                                 |
+|----------------|------------------|-----------------------------------------|
+| Constant       | \(O(1)\)         | Using a fixed number of variables       |
+| Linear         | \(O(n)\)         | Storing data in an array                |
+| Quadratic      | \(O(n^2)\)       | Using a 2D matrix for dynamic programming|
+| Logarithmic    | \(O(\log n)\)    | Storing recursive calls in binary search|
+
+### 4. **How to Calculate Space Complexity**
+
+   - **Primitive Variables**: Each primitive (e.g., `int`, `char`) requires constant space \(O(1)\).
+     - Example:
+       ```python
+       a = 10       # O(1)
+       b = [1, 2, 3] # O(n), where n is the number of elements in the list
+       ```
+   - **Data Structures**: Space depends on the data structure's size.
+     - List of \(n\) elements → \(O(n)\)
+     - 2D array of \(n \times n\) → \(O(n^2)\)
+   - **Recursive Functions**: Each recursive call adds a new frame to the call stack.
+     - Recursive depth of \(n\) (linear recursion) → \(O(n)\)
+     - Binary recursion with depth of \(\log n\) → \(O(\log n)\)
+
+### 5. **Common Mistakes in Space Complexity Calculations**
+   - **Overlooking function calls in recursion**: Each recursive call adds to the call stack.
+   - **Miscounting data structure space**: Remember to account for auxiliary space (temporary arrays, lists).
+   - **Ignoring constants in auxiliary variables**: Multiple variables don't change linear complexity, but they do matter if additional lists or arrays grow with \(n\).
+
+---
+
+## **Examples and Patterns for Time and Space Complexity**
+
+### 1. **Example: Linear Time Complexity \(O(n)\)**
+   - Problem: Summing elements in an array.
+   - Solution:
+     ```python
+     def sum_array(arr):
+         total = 0
+         for num in arr:
+             total += num
+         return total
+     ```
+     **Time Complexity**: \(O(n)\) – iterates through each element once.
+     **Space Complexity**: \(O(1)\) – only a few variables used.
+
+### 2. **Example: Quadratic Time Complexity \(O(n^2)\)**
+   - Problem: Checking for duplicate pairs in an array.
+   - Solution:
+     ```python
+     def check_duplicates(arr):
+         for i in range(len(arr)):
+             for j in range(i + 1, len(arr)):
+                 if arr[i] == arr[j]:
+                     return True
+         return False
+     ```
+     **Time Complexity**: \(O(n^2)\) – double loop iterates over each pair.
+     **Space Complexity**: \(O(1)\) – no extra data structure used.
+
+### 3. **Example: Recursive Complexity \(O(2^n)\)**
+   - Problem: Calculating Fibonacci sequence.
+   - Solution:
+     ```python
+     def fibonacci(n):
+         if n <= 1:
+             return n
+         return fibonacci(n - 1) + fibonacci(n - 2)
+     ```
+     **Time Complexity**: \(O(2^n)\) – each call splits into two more calls.
+     **Space Complexity**: \(O(n)\) – due to call stack depth of \(n\).
+
+
+---
+
+# Implementation with examples 
+
 
 ### 1. O(1) - Constant Time
 - **Definition**: The algorithm takes the same amount of time regardless of the input size.

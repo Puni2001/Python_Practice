@@ -4,4 +4,4 @@ Welcome to your DSA revision page! This is a structured guide to review Python b
 
 ## Topics
 
-- [Time and Space Complexity](DSA/TimeAndSpaceComplexity/timeAndSpaceComplexity.md)
+- [Time and Space Complexity](../DSA/TimeAndSpaceComplexity/timeAndSpaceComplexity.md)
